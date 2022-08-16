@@ -88,6 +88,7 @@ router.get('/', userController.findAll);
  *         description: Some server error
  */
 router.post('/', userController.create);
+//banker class
 // Retrieve a single user with id
 /**
  * @swagger

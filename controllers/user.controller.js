@@ -22,11 +22,10 @@ export class Controller {
       //console.log(req);
       // Create a new User
       const user = new User({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
+        fullname: req.body.fullname,
         email: req.body.email,
         phone: req.body.phone,
-        is_active: req.body.is_active,
+        password: req.body.password,
       });
 
       // Save user in database
@@ -50,11 +49,10 @@ export class Controller {
   update = async (req, res) => {
     try {
       const user =await User.findByIdAndUpdate(req.params.id, {
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
+        fullname: req.body.fullname,
         email: req.body.email,
         phone: req.body.phone,
-        is_active: req.body.is_active,
+        password: req.body.password,
       });
       if (!user) {
         return res.status(404).send({

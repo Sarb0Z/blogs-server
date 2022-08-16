@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import express from "express";
 import swaggerUI from "swagger-ui-express";
 import swaggerJsDoc from "swagger-jsdoc";
+import cors from "cors";
 
 import router from "./routes/user.routes.js";
 dotenv.config();
@@ -11,6 +12,7 @@ const app =express();
 const port =  process.env.PORT;
 app.use(express.json());
 app.use('/users', router)
+app.use(cors());
 
 
 const options = {
@@ -40,6 +42,8 @@ const options = {
 
 const specs = swaggerJsDoc(options);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
+
+
 // Database set up
 const mongoString = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.hnb9i.mongodb.net/?retryWrites=true&w=majority`
 mongoose.connect(mongoString, {useNewUrlParser: true})

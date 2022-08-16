@@ -9,34 +9,27 @@ import { Controller } from '../controllers/user.controller.js';
  *       type: object
  *       required:
  *       -  id 
- *       -  first_name
- *       -  last_name
+ *       -  fullname
  *       -  email
- *       -  phone
- *       -  is_active
+ *       -  password
  *       properties:
  *         id:
  *           type: string
  *           description: The Auto-generated id of a post
- *         first_name:
+ *         fullname:
  *           type: string
  *           description: id of author
- *         last_name:
- *           type: string
- *           description: title of post
  *         email:
  *           type: string
  *           descripton: content of post *
- *         is_active:
- *           type: bool
+ *         password:
+ *           type: string
  *           descripton: content of post *
  *       example:
  *         id: stuff
- *         first_name: other stuff
- *         last_name: my title
+ *         fullname: other stuff
  *         email: my article
- *         phone: 123-920921
- *         is_active: true
+ *         password: 123-920921
  *
  */
 
@@ -101,7 +94,7 @@ router.post('/', userController.create);
  *         name: id
  *         description: id of user
  *         schema:
- *           type: integer
+ *           type: string
  *         required: true
  *     responses:
  *       200:
@@ -111,7 +104,7 @@ router.post('/', userController.create);
  *             schema:
  *               $ref: '#/components/schemas/User'
  *       400:
- *         description: post can not be found
+ *         description: user can not be found
  */
 router.get('/:id', userController.findOne);
 // Update a user with id

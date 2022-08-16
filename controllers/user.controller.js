@@ -19,6 +19,7 @@ export class Controller {
           message: "Please fill all required field",
         });
       }
+      //console.log(req);
       // Create a new User
       const user = new User({
         first_name: req.body.first_name,
@@ -31,7 +32,7 @@ export class Controller {
       // Save user in database
       const createUser = await user.save();
       res.status(201).json({ user: createUser });
-      console.log("user added successfully")
+      // console.log("user added successfully")
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

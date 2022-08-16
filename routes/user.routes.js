@@ -31,11 +31,11 @@ import { Controller } from '../controllers/user.controller.js';
  *           type: bool
  *           descripton: content of post *
  *       example:
- *         id: 1
- *         first_name: 1
+ *         id: stuff
+ *         first_name: other stuff
  *         last_name: my title
  *         email: my article
- *         phone: 123920921
+ *         phone: 123-920921
  *         is_active: true
  *
  */
@@ -63,11 +63,12 @@ const userController = new Controller();
  *                 $ref: '#/components/schemas/User'
  */
 router.get('/', userController.findAll);
+// Create a new user
 
 /**
  * @swagger
  * /users:
- *   User:
+ *   post:
  *     summary: Create a new user
  *     tags: [User]
  *     requestBody:
@@ -86,7 +87,6 @@ router.get('/', userController.findAll);
  *       500:
  *         description: Some server error
  */
-// Create a new user
 router.post('/', userController.create);
 // Retrieve a single user with id
 /**

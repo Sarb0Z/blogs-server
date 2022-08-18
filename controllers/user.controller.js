@@ -3,6 +3,10 @@ import User from "../models/users.js";
 export class Controller {
 
   findAll = async (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    
     try {
       const userData = await User.find();
       res.json({ ListOfUsers: userData });

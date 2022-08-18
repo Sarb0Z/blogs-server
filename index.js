@@ -13,6 +13,17 @@ const port =  process.env.PORT;
 app.use(express.json());
 app.use('/users', router)
 app.use(cors());
+// const startServer = () =>{
+//   app.use((req,res, next) => {
+//     res.header("Access-Control-Allow-Origin","*");
+//     res.header("Access-Control-Allow-Headers","Content-Type, Accept");
+//     res.header("Access-Control-Allow-Methods","PUT, POST, PATCH, DELETE, GET");
+//     next();
+//   })
+// }
+
+// startServer();
+
 
 
 const options = {

@@ -3,10 +3,8 @@ import User from "../models/users.js";
 export class Controller {
 
   findAll = async (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Origin', 'Content-Type');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    
+  
+
     try {
       const userData = await User.find();
       res.json({ ListOfUsers: userData });
@@ -16,6 +14,7 @@ export class Controller {
   };
 
   create = async (req, res) => {
+    
     try {
       // Validate request
       if (!req.body) {
@@ -42,6 +41,7 @@ export class Controller {
   };
 
   findOne = async (req, res) => {
+    
     try {
       const user = await User.findById(req.params.id);
       res.status(200).json({ user: user });
@@ -51,6 +51,7 @@ export class Controller {
   };
 
   update = async (req, res) => {
+  
     try {
       const user =await User.findByIdAndUpdate(req.params.id, {
         fullname: req.body.fullname,
@@ -70,6 +71,7 @@ export class Controller {
   };
 
   delete = async (req, res) => {
+    
     try {
       const user = await User.findByIdAndRemove(req.params.id);
       if (!user) {

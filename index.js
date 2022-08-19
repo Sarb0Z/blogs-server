@@ -8,11 +8,20 @@ import cors from "cors";
 import router from "./routes/user.routes.js";
 dotenv.config();
 
-const app =express();
-const port =  process.env.PORT;
+const app = express();
+const port = process.env.PORT;
 app.use(express.json());
-app.use('/users', router)
-app.use(cors());
+app.use("/users", cors(), router);
+// app.use(
+//   cors(
+//     {
+//       origin: 'http://localhost:3000',
+//     },
+//     {
+//       methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
+//     }
+//   )
+// );
 // const startServer = () =>{
 //   app.use((req,res, next) => {
 //     res.header("Access-Control-Allow-Origin","*");
@@ -23,8 +32,6 @@ app.use(cors());
 // }
 
 // startServer();
-
-
 
 const options = {
   definition: {
@@ -54,18 +61,16 @@ const options = {
 const specs = swaggerJsDoc(options);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
-
 // Database set up
-const mongoString = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.hnb9i.mongodb.net/?retryWrites=true&w=majority`
-mongoose.connect(mongoString, {useNewUrlParser: true})
-mongoose.connection.on("error", function(error) {
-  console.log(error)
-})
-mongoose.connection.on("open", function() {
-  console.log("Connected to MongoDB database.")
-})
+const mongoString = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.hnb9i.mongodb.net/?retryWrites=true&w=majority`;
+mongoose.connect(mongoString, { useNewUrlParser: true });
+mongoose.connection.on("error", function (error) {
+  console.log(error);
+});
+mongoose.connection.on("open", function () {
+  console.log("Connected to MongoDB database.");
+});
 
-app.listen(port,()=>{
+app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
-})
-
+});

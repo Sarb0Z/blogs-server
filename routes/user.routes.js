@@ -1,5 +1,6 @@
-import { Router } from 'express';
-import { Controller } from '../controllers/user.controller.js';
+import { Router } from "express";
+import { Controller } from "../controllers/user.controller.js";
+import { verifyToken } from "../middleware/auth.js";
 
 /**
  * @swagger
@@ -8,7 +9,7 @@ import { Controller } from '../controllers/user.controller.js';
  *     User:
  *       type: object
  *       required:
- *       -  id 
+ *       -  id
  *       -  fullname
  *       -  email
  *       -  password
@@ -33,8 +34,6 @@ import { Controller } from '../controllers/user.controller.js';
  *
  */
 
-
-
 const router = Router();
 const userController = new Controller();
 // Retrieve all users
@@ -55,7 +54,7 @@ const userController = new Controller();
  *               items:
  *                 $ref: '#/components/schemas/User'
  */
-router.get('/', userController.findAll);
+router.get("/", verifyToken, userController.findAll);
 // Create a new user
 
 /**
@@ -80,7 +79,7 @@ router.get('/', userController.findAll);
  *       500:
  *         description: Some server error
  */
-router.post('/', userController.create);
+router.post("/", verifyToken, userController.create);
 //banker class
 // Retrieve a single user with id
 /**
@@ -106,7 +105,7 @@ router.post('/', userController.create);
  *       400:
  *         description: user can not be found
  */
-router.get('/:id', userController.findOne);
+router.get("/:id", verifyToken, userController.findOne);
 // Update a user with id
 /**
  * @swagger
@@ -140,7 +139,7 @@ router.get('/:id', userController.findOne);
  *         description: Some errors happend.
  *
  */
-router.put('/:id', userController.update);
+router.put("/:id", verifyToken, userController.update);
 // Delete a user with id
 /**
  * @swagger
@@ -162,7 +161,29 @@ router.put('/:id', userController.update);
  *          description: The user was not found
  *
  */
-router.delete('/:id', userController.delete);
+router.delete("/:id", verifyToken, userController.delete);
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: Sign in to account
+ *     tags: [User]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *       200:
+ *         description: The user was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       500:
+ *         description: Some server error
+ */
+router.post("/login", userController.sign_in);
 
-
-export default router
+export default router;

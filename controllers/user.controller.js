@@ -101,8 +101,8 @@ export class Controller {
 
   sign_in = async (req, res) => {
     try {
+      console.log(req.body);
       const user = await User.findOne({ email: req.body.email });
-
       //Check if user email exists or password is incorrect
       if (!user || !user.comparePassword(req.body.password)) {
         return res.status(401).json({

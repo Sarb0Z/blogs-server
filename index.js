@@ -5,13 +5,16 @@ import swaggerUI from "swagger-ui-express";
 import swaggerJsDoc from "swagger-jsdoc";
 import cors from "cors";
 
-import router from "./routes/user.routes.js";
+import userRouter from "./routes/user.routes.js";
+import followRouter from "./routes/follow.routes.js";
+
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT;
 app.use(express.json());
-app.use("/users", cors(), router);
+app.use("/users", cors(), userRouter);
+app.use("/follows", cors(), followRouter);
 // app.use(
 //   cors(
 //     {

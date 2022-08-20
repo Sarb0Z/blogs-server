@@ -1,13 +1,11 @@
-import User from "../models/users.js";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import Follows from "../models/follows.js";
+
+import Blog from "../models/follows.js";
 
 export class Controller {
   findAll = async (req, res) => {
     try {
-      const followData = await Follows.find();
-      res.json({ followData: followData });
+      const blogData = await Blog.find();
+      res.json({ blogData: blogData });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
@@ -23,13 +21,15 @@ export class Controller {
       //console.log(req);
       // Create a new User
 
-      const follows = new Follows({
-        user_id: req.body.user_id,
-        list_of_follows: req.body.list_of_follows,
+      const blog = new Blog({
+        author: req.body.author,
+        title: req.body.title,
+        dateModified: new Date(),
+        article: req.body.article
       });
       // Save user in database
-      const createFollows = await follows.save();
-      res.status(201).json({ follows: createFollows });
+      const createBlog = await blog.save();
+      res.status(201).json({ blog: createBlog });
       // console.log("user added successfully")
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -38,8 +38,8 @@ export class Controller {
 
   findOne = async (req, res) => {
     try {
-      const follows = await Follows.findById(req.params.id);
-      res.status(200).json({ follows: follows });
+      const blog = await Blog.findById(req.params.id);
+      res.status(200).json({ blog: blog });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
@@ -47,16 +47,18 @@ export class Controller {
 
   update = async (req, res) => {
     try {
-      const follows = await Follows.findByIdAndUpdate(req.params.id, {
-        user_id: req.body.user_id,
-        list_of_follows: req.body.list_of_follows,
+      const blog = await Blog.findByIdAndUpdate(req.params.id, {
+        author: req.body.author,
+        title: req.body.title,
+        dateModified: new Date(),
+        article: req.body.article
       });
       if (!follows) {
         return res.status(404).send({
           message: "Follows not found with id " + req.params.id,
         });
       }
-      res.status(200).json({ updatedFollows: follows });
+      res.status(200).json({ updatedBlog: blog });
     } catch (error) {
       res.status(404).json({ message: error.message });
     }
@@ -64,7 +66,7 @@ export class Controller {
 
   delete = async (req, res) => {
     try {
-      const follows = await Follows.findByIdAndRemove(req.params.id);
+      const blog = await Blog.findByIdAndRemove(req.params.id);
       if (!follows) {
         return res.status(404).send({
           message: "User not found with id " + req.params.id,

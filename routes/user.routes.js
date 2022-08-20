@@ -34,7 +34,7 @@ import { verifyToken } from "../middleware/auth.js";
  *
  */
 
-const router = Router();
+const userRouter = Router();
 const userController = new Controller();
 // Retrieve all users
 
@@ -54,7 +54,7 @@ const userController = new Controller();
  *               items:
  *                 $ref: '#/components/schemas/User'
  */
-router.get("/", verifyToken, userController.findAll);
+userRouter.get("/", verifyToken, userController.findAll);
 // Create a new user
 
 /**
@@ -79,7 +79,7 @@ router.get("/", verifyToken, userController.findAll);
  *       500:
  *         description: Some server error
  */
-router.post("/", verifyToken, userController.create);
+userRouter.post("/", userController.create);
 //banker class
 // Retrieve a single user with id
 /**
@@ -105,7 +105,7 @@ router.post("/", verifyToken, userController.create);
  *       400:
  *         description: user can not be found
  */
-router.get("/:id", verifyToken, userController.findOne);
+userRouter.get("/:id", verifyToken, userController.findOne);
 // Update a user with id
 /**
  * @swagger
@@ -139,7 +139,7 @@ router.get("/:id", verifyToken, userController.findOne);
  *         description: Some errors happend.
  *
  */
-router.put("/:id", verifyToken, userController.update);
+userRouter.put("/:id", verifyToken, userController.update);
 // Delete a user with id
 /**
  * @swagger
@@ -161,10 +161,10 @@ router.put("/:id", verifyToken, userController.update);
  *          description: The user was not found
  *
  */
-router.delete("/:id", verifyToken, userController.delete);
+userRouter.delete("/:id", verifyToken, userController.delete);
 /**
  * @swagger
- * /login:
+ * /users/login:
  *   post:
  *     summary: Sign in to account
  *     tags: [User]
@@ -184,6 +184,6 @@ router.delete("/:id", verifyToken, userController.delete);
  *       500:
  *         description: Some server error
  */
-router.post("/login", userController.sign_in);
+userRouter.post("/login/", userController.sign_in);
 
-export default router;
+export default userRouter;

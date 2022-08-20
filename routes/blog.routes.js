@@ -1,42 +1,52 @@
 import { Router } from "express";
-import { Controller } from "../controllers/follow.controller.js";
+import { Controller } from "../controllers/blog.controller.js";
 import { verifyToken } from "../middleware/auth.js";
 /**
  * @swagger
  * components:
  *   schemas:
- *     Follows:
+ *     Blog:
  *       type: object
  *       required:
  *       -  id
- *       -  user_id
- *       -  follows
+ *       -  author
+ *       -  title
+ *       -  date_modified
+ *       -  article
  *       properties:
  *         id:
  *           type: string
  *           description: The Auto-generated id of a post
- *         user_id:
+ *         author:
  *           type: string
  *           description: id of author
- *         follows:
- *           type: [string]
+ *         title:
+ *           type: string
+ *           descripton: content of post 
+ *         date_modified:
+ *           type: date
+ *           descripton: content of post 
+ *         article:
+ *           type: string
  *           descripton: content of post 
  *       example:
  *         id: 98123094-32-4
- *         user_id: 109332-04
- *         follows: ['banker', 'icecream'] 
+ *         author : Ibrahim
+ *         title: "my struggle" 
+ *         date_modified : 2/10/2022
+ *         article: "bla bla bla yada yada lorem ipsum etc et cetera" 
  *
  */
 
- const followRouter = Router();
- const followController = new Controller();
+ const blogRouter = Router();
+ const blogController = new Controller();
 
 /**
  * @swagger
- * /follows:
+ * /blogs:
  *   get:
  *     summary: Returns all Users
- *     tags: [Follows]
+ *     tags: [Blog]
  *     responses:
  *       200:
  *         description: the list of the users
@@ -45,42 +55,42 @@ import { verifyToken } from "../middleware/auth.js";
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Follows'
+ *                 $ref: '#/components/schemas/Blog'
  */
- followRouter.get("/", followController.findAll);
+ blogRouter.get("/", blogController.findAll);
 // Create a new Follow
 
 /**
  * @swagger
- * /follows:
+ * /blogs:
  *   post:
  *     summary: Create a new user
- *     tags: [Follows]
+ *     tags: [Blog]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Follows'
+ *             $ref: '#/components/schemas/Blog'
  *     responses:
  *       200:
  *         description: The user was successfully created
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Follows'
+ *               $ref: '#/components/schemas/Blog'
  *       500:
  *         description: Some server error
  */
- followRouter.post("/", followController.create);
+ blogRouter.post("/", blogController.create);
  //banker class
  // Retrieve a single user with id
  /**
   * @swagger
-  * /follows/{id}:
+  * /blogs/{id}:
   *   get:
   *     summary: gets user by id
-  *     tags: [Follows]
+  *     tags: [Blog]
   *     parameters:
   *       - in : path
   *         name: id
@@ -94,18 +104,18 @@ import { verifyToken } from "../middleware/auth.js";
   *         content:
   *           application/json:
   *             schema:
-  *               $ref: '#/components/schemas/Follows'
+  *               $ref: '#/components/schemas/Blog'
   *       400:
   *         description: user can not be found
   */
- followRouter.get("/:id", verifyToken, followController.findOne);
+ blogRouter.get("/:id", verifyToken, blogController.findOne);
  // Update a user with id
  /**
   * @swagger
-  * /follows/{id}:
+  * /blogs/{id}:
   *   put:
   *     summary: updates users by id
-  *     tags: [Follows]
+  *     tags: [Blog]
   *     parameters:
   *       - in: path
   *         name: id
@@ -118,28 +128,28 @@ import { verifyToken } from "../middleware/auth.js";
   *       content:
   *         application/json:
   *           schema:
-  *             $ref: '#/components/schemas/Follows'
+  *             $ref: '#/components/schemas/Blog'
   *     responses:
   *       200:
   *         decsription: The post was updated
   *         content:
   *           application/json:
   *             schema:
-  *               $ref: '#/components/schemas/Follows'
+  *               $ref: '#/components/schemas/Blog'
   *       404:
   *         description: user was not found.
   *       500:
   *         description: Some errors happend.
   *
   */
- followRouter.put("/:id", verifyToken, followController.update);
+ blogRouter.put("/:id", verifyToken, blogController.update);
  // Delete a user with id
  /**
   * @swagger
-  *  /follows/{id}:
+  *  /blogs/{id}:
   *    delete:
   *      summary: removes post from array
-  *      tags: [Follows]
+  *      tags: [Blog]
   *      parameters:
   *        - in: path
   *          name: id
@@ -154,6 +164,6 @@ import { verifyToken } from "../middleware/auth.js";
   *          description: The user was not found
   *
   */
- followRouter.delete("/:id", verifyToken, followController.delete);
+ blogRouter.delete("/:id", verifyToken, blogController.delete);
 
  export default followRouter;

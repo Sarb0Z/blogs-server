@@ -166,4 +166,4 @@ import { verifyToken } from "../middleware/auth.js";
   */
  blogRouter.delete("/:id", verifyToken, blogController.delete);
 
- export default followRouter;
+ export default blogRouter;

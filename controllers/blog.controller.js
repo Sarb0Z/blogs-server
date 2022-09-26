@@ -1,5 +1,5 @@
 
-import Blog from "../models/follows.js";
+import Blog from "../models/blogs.js";
 
 export class Controller {
   findAll = async (req, res) => {

@@ -7,6 +7,7 @@ import cors from "cors";
 
 import userRouter from "./routes/user.routes.js";
 import followRouter from "./routes/follow.routes.js";
+import blogRouter from "./routes/blog.routes.js";
 
 dotenv.config();
 
@@ -15,6 +16,8 @@ const port = process.env.PORT;
 app.use(express.json());
 app.use("/users", cors(), userRouter);
 app.use("/follows", cors(), followRouter);
+app.use("/blogs", cors(), blogRouter);
+
 // app.use(
 //   cors(
 //     {
